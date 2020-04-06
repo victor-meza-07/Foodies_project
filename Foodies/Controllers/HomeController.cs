@@ -7,28 +7,36 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Foodies.Models;
 using Foodies.Data;
+using Foodies.Contracts;
 
 namespace Foodies.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly ApplicationDbContext _context;
-
-        public HomeController(ILogger<HomeController> logger)
+        
+        private IPlacesRequest _placesRequest;
+        public HomeController(IPlacesRequest placesRequest)
         {
-            _logger = logger;
+            _placesRequest = placesRequest;
         }
 
 
         //post
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            
+
             //Call the facebook method.
 
-            return View();
+
+            //How to display the information you retrieve from google. 
+            GooglePlacesAPI places = await _placesRequest.GetPlaces();
+
+            return View(places);
         }
+
+
+        
+
 
 
         public IActionResult Privacy()

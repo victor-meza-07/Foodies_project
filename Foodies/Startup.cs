@@ -12,6 +12,8 @@ using Foodies.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Foodies.Models.Services;
+using Foodies.Contracts;
 
 namespace Foodies
 {
@@ -38,6 +40,8 @@ namespace Foodies
             
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddScoped<IPlacesRequest, PlacesRequest>();
+            services.AddScoped<IPlaceResultsRequest, PlaceIdResultsRequest>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
