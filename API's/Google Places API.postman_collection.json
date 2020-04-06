@@ -1,0 +1,120 @@
+{
+	"info": {
+		"_postman_id": "edd7ca6a-fc8e-44f7-a95f-9bdfc0c31537",
+		"name": "Google Places API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=milwaukee%20ale%20house&inputtype=textquery&fields=place_id,photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyCBaESGeCAL6s5KQz2poUin6QmUwiFWLtM",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJfYyA86MZBYgRzDSuVHbLglQ&fields=name,rating,formatted_phone_number&key=AIzaSyCBaESGeCAL6s5KQz2poUin6QmUwiFWLtM",
+					"protocol": "https",
+					"host": [
+						"maps",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"maps",
+						"api",
+						"place",
+						"details",
+						"json"
+					],
+					"query": [
+						{
+							"key": "place_id",
+							"value": "ChIJfYyA86MZBYgRzDSuVHbLglQ"
+						},
+						{
+							"key": "fields",
+							"value": "name,rating,formatted_phone_number"
+						},
+						{
+							"key": "key",
+							"value": "AIzaSyCBaESGeCAL6s5KQz2poUin6QmUwiFWLtM"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJfYyA86MZBYgRzDSuVHbLglQ&fields=name,rating,formatted_phone_number&key=AIzaSyCBaESGeCAL6s5KQz2poUin6QmUwiFWLtM",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJfYyA86MZBYgRzDSuVHbLglQ&fields=name,rating,formatted_phone_number&key=AIzaSyCBaESGeCAL6s5KQz2poUin6QmUwiFWLtM",
+					"protocol": "https",
+					"host": [
+						"maps",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"maps",
+						"api",
+						"place",
+						"details",
+						"json"
+					],
+					"query": [
+						{
+							"key": "place_id",
+							"value": "ChIJfYyA86MZBYgRzDSuVHbLglQ"
+						},
+						{
+							"key": "fields",
+							"value": "name,rating,formatted_phone_number"
+						},
+						{
+							"key": "key",
+							"value": "AIzaSyCBaESGeCAL6s5KQz2poUin6QmUwiFWLtM"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+in+Milwaukee&key=AIzaSyCBaESGeCAL6s5KQz2poUin6QmUwiFWLtM\n",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+in+Milwaukee&key=AIzaSyCBaESGeCAL6s5KQz2poUin6QmUwiFWLtM\n",
+					"protocol": "https",
+					"host": [
+						"maps",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"maps",
+						"api",
+						"place",
+						"textsearch",
+						"json"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "restaurants+in+Milwaukee"
+						},
+						{
+							"key": "key",
+							"value": "AIzaSyCBaESGeCAL6s5KQz2poUin6QmUwiFWLtM\n"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
