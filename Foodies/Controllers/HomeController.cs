@@ -14,6 +14,7 @@ namespace Foodies.Controllers
     public class HomeController : Controller
     {
         
+        
         private IPlacesRequest _placesRequest;
         public HomeController(IPlacesRequest placesRequest)
         {
@@ -28,10 +29,9 @@ namespace Foodies.Controllers
             //Call the facebook method.
 
 
-            //How to display the information you retrieve from google. 
-            GooglePlacesAPI places = await _placesRequest.GetPlaces();
+            //How to display the information you retrieve from google.
 
-            return View(places);
+            return View();
         }
 
 

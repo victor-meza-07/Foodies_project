@@ -42,6 +42,7 @@ namespace Foodies
             services.AddRazorPages();
             services.AddScoped<IPlacesRequest, PlacesRequest>();
             services.AddScoped<IPlaceResultsRequest, PlaceIdResultsRequest>();
+            services.AddScoped<IFacebookDataRequest, FacebookDataRequest>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

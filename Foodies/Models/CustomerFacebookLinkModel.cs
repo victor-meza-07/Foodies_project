@@ -20,6 +20,6 @@ namespace Foodies.Models
         public string CustomerFacebookKey { get { return _key; } set { CustomerFacebookKey = _key; } }
 
         public string CustomerGUID { get; set; }
-        public int FacebookProfileId { get; set; }
+        public string UserAccessToken { get; set; }
     }
 }
