@@ -5,6 +5,10 @@
     <UserSecretsId>aspnet-Foodies-27202304-79F8-408C-9313-01E0814625AE</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Include="wwwroot\Api_Keys.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.0.0" />

@@ -1,4 +1,5 @@
 ﻿using Foodies.Contracts;
+using Foodies.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,10 @@ namespace Foodies.Models.Services
 {
     public class PlaceIdResultsRequest : IPlaceResultsRequest
     {
-        public PlaceIdResultsRequest()
+        ApplicationDbContext _context;
+        public PlaceIdResultsRequest(ApplicationDbContext context)
         {
-
+            _context = context;
         }
 
         public async Task<GooglePlacesAPI_PlaceIDSearchResults> GetPlaceIDResults(string APIKEY, string PLACE_ID)
@@ -34,5 +36,6 @@ namespace Foodies.Models.Services
                 return null;
             } 
         }
+       
     }
 }

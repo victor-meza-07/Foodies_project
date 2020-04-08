@@ -3,8 +3,8 @@ namespace Foodies.Models
 {
     public class GooglePlacesAPI
     {
-        public object[] html_attributions { get; set; }
-        public string next_page_token { get; set; }
+        public object[] Html_attributions { get; set; }
+        public string Next_page_token { get; set; }
         public Result[] results { get; set; }
         public string status { get; set; }
     }
