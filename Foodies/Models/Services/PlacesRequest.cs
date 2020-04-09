@@ -93,6 +93,7 @@ namespace Foodies.Models.Services
             parameterDictionary.TryGetValue("SearchedCity", out searchedCityOut);
             string searchedStateOut = "";
             parameterDictionary.TryGetValue("SearchedState", out searchedStateOut);
+            string searchResults = _context.RegisteredApiCalls.Where(searched => searched.Cuisine == cuisineOut && searched.FoodType == foodTypeOut && searched.SearchedCity == searchedCityOut && searched.SearchedState == searchedStateOut).Select(u => u.Url).FirstOrDefault();
             // 1. search apicalls table for apicall that matches  all perameterDictionary perameters int primary key
             // 2. Search junction table for restaurant PrimaryId's string restaurant primary key
             // 3. search restaurant model table that match all the id's return restaurant model

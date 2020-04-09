@@ -15,7 +15,7 @@ namespace Foodies.Models
         public Geometry geometry { get; set; }
         public string icon { get; set; }
         public string id { get; set; }
-        public string name { get; set; }
+        public string name { get; set; }// restaurant name
         public Opening_Hours opening_hours { get; set; }
         public Photo[] photos { get; set; }
         public string place_id { get; set; }
