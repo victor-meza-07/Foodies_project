@@ -23,12 +23,12 @@ namespace Foodies.Models
         public string AddressKey { get; set; }
         public int PriceRangeIndex { get; set; } // a value from 0-4
         public string WebsiteUrl { get; set; }
-        public bool open_now { get; set; }
-        public float lat { get; set; }
-        public float lng { get; set; }
-        public PhotosFromGoogle[] photos { get; set; }
-        public int price_level { get; set; }
-        public float rating { get; set; }
+        public bool Open_now { get; set; }
+        public float Lat { get; set; }
+        public float Lng { get; set; }
+        public PhotosFromGoogle[] Photos { get; set; }
+        public int Price_level { get; set; }
+        public float Rating { get; set; }
       //deleted reviews
         
        

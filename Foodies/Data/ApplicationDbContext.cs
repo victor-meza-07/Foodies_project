@@ -19,6 +19,7 @@ namespace Foodies.Data
         public DbSet<CustomerFacebookLinkModel> CustomerFacebookLink { get; set; }
         public DbSet<APICalls> RegisteredApiCalls { get; set; }
         public DbSet<PhotosFromGoogle> PhotosFromGoogle { get; set; }
+        public DbSet<ReviewsFromGoogle> ReviewsFromGoogle { get; set; }
         //TODO: 
         //ADD: USER REPORTS MODEL COLLECTION
         //ADD: EMPLOYEE MODEL, MODEL COLLECTION

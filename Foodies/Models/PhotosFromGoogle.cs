@@ -11,9 +11,9 @@ namespace Foodies.Models
         [Key]
         public int PhotosPrimaryKey { get; set; }
         public string RestaurantGuid { get; set; }
-        public int height { get; set; }
-      //deleted html attributions
-        public string photo_reference { get; set; }
-        public int width { get; set; }
+        public int Height { get; set; }
+        //deleted html attributions
+        public string Photo_reference { get; set; }
+        public int Width { get; set; }
     }
 }
