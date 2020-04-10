@@ -20,9 +20,11 @@ namespace Foodies.Data
         public DbSet<APICalls> RegisteredApiCalls { get; set; }
         public DbSet<PhotosFromGoogle> PhotosFromGoogle { get; set; }
         public DbSet<ReviewsFromGoogle> ReviewsFromGoogle { get; set; }
+        public DbSet<SearchJunction> SearchJunctions { get; set; }
+        public DbSet<CustomerCuisinePreferenceModel> CustomerCuisinePreferences { get;  set; }
         //TODO: 
-        //ADD: USER REPORTS MODEL COLLECTION
-        //ADD: EMPLOYEE MODEL, MODEL COLLECTION
+        //Add-Migration Added-CustomerCuisinePreferences
+        //Update-Database
 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)

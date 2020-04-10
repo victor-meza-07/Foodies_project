@@ -8,6 +8,6 @@ namespace Foodies.Contracts
 {
     public interface IPlacesRequest
     {
-        Task<GooglePlacesAPI> GetPlaces();
+       Task<GooglePlacesAPI> GetPlaces();
     }
 }

@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="wwwroot\Api_Keys.cs" />
+    <None Remove="Models\NewFile.txt" />
   </ItemGroup>
 
 
