@@ -3,8 +3,8 @@ namespace Foodies.Models
 {
     public class GooglePlacesAPI
     {
-        public object[] html_attributions { get; set; }
-        public string next_page_token { get; set; }
+        public object[] Html_attributions { get; set; }
+        public string Next_page_token { get; set; }
         public Result[] results { get; set; }
         public string status { get; set; }
     }
@@ -15,11 +15,11 @@ namespace Foodies.Models
         public Geometry geometry { get; set; }
         public string icon { get; set; }
         public string id { get; set; }
-        public string name { get; set; }
+        public string name { get; set; }// restaurant name
         public Opening_Hours opening_hours { get; set; }
-        public Photo[] photos { get; set; }
+        public Photo[] Photos { get; set; }
         public string place_id { get; set; }
-        public Plus_Code plus_code { get; set; }
+        public Plus_Code  plus_Code { get; set; }
         public int price_level { get; set; }
         public float rating { get; set; }
         public string reference { get; set; }

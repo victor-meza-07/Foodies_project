@@ -34,12 +34,19 @@ namespace Foodies.Controllers
         }
 
 
+<<<<<<< HEAD
         public IActionResult RedirectoToFacebook()
         {
             Models.Services.FacebookDataRequest facebookDataRequest = new Models.Services.FacebookDataRequest(_context);
             facebookDataRequest.postman();
 
             return View("Index");
+=======
+            //How to display the information you retrieve from google. 
+          
+
+            return View();
+>>>>>>> gary-APICallLogic-branch
         }
 
 

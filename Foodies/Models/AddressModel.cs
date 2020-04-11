@@ -21,7 +21,7 @@ namespace Foodies.Models
         public int ZipCode { get; set; } //53222
         public string City { get; set; } //Milwaukee
         public string StateCode { get; set; } // WI
-
+        public string RestaurantGuid { get; set; }
         //sample: "313" "N Plankton" "Milwaukee", "WI" "53222"
     }
 }

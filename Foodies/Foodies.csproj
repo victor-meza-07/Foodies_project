@@ -5,6 +5,10 @@
     <UserSecretsId>aspnet-Foodies-27202304-79F8-408C-9313-01E0814625AE</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Models\NewFile.txt" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Facebook" Version="7.0.6" />

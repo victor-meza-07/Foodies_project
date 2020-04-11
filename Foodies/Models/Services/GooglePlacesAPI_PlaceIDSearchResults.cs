@@ -1,4 +1,4 @@
-﻿namespace Foodies 
+﻿namespace Foodies
 {
     public class GooglePlacesAPI_PlaceIDSearchResults
     {

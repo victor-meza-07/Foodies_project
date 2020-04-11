@@ -4,14 +4,16 @@ using Foodies.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Foodies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200409010611_SearchJunction")]
+    partial class SearchJunction
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,27 +73,6 @@ namespace Foodies.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("Foodies.Models.CustomerCuisinePreferenceModel", b =>
-                {
-                    b.Property<int>("CCPMPrimaryKey")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CuisineType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CustomerPK")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("PreferredOn")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("CCPMPrimaryKey");
-
-                    b.ToTable("CustomerCuisinePreferences");
-                });
-
             modelBuilder.Entity("Foodies.Models.CustomerFacebookLinkModel", b =>
                 {
                     b.Property<string>("CustomerFacebookKey")
@@ -100,8 +81,8 @@ namespace Foodies.Migrations
                     b.Property<string>("CustomerGUID")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserAccessToken")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("FacebookProfileId")
+                        .HasColumnType("int");
 
                     b.HasKey("CustomerFacebookKey");
 
@@ -132,16 +113,10 @@ namespace Foodies.Migrations
                     b.Property<string>("AddressKey")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AgeRange")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IdentityUserId")
@@ -243,9 +218,6 @@ namespace Foodies.Migrations
 
                     b.Property<bool>("Open_now")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Place_Id")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PriceRangeIndex")
                         .HasColumnType("int");
@@ -356,25 +328,15 @@ namespace Foodies.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<< HEAD
-                            Id = "5d26d905-d9fd-4581-b583-d9c1b5fb642e",
-                            ConcurrencyStamp = "b4fd6bdf-314d-45f5-8733-61823ebfa87c",
-=======
-                            Id = "67597e38-af4c-45be-aa66-76576cc61293",
-                            ConcurrencyStamp = "7aacf5fe-5b6c-43d8-aabf-7e2610d0f8f3",
->>>>>>> gary-APICallLogic-branch
+                            Id = "5a2380a5-1f3a-4500-9bb4-1c7e0adc2172",
+                            ConcurrencyStamp = "093f26b2-bed7-4d0d-92e9-0b70e90fd34e",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-<<<<<<< HEAD
-                            Id = "84015730-4eee-42d3-a601-4da67ea4e3e4",
-                            ConcurrencyStamp = "53cab464-8d0d-4a32-9044-521c28dfd70a",
-=======
-                            Id = "a5ca32f2-b572-47d8-bd06-95f370f1ad16",
-                            ConcurrencyStamp = "7f9c0671-8015-489c-a893-af5facb2447c",
->>>>>>> gary-APICallLogic-branch
+                            Id = "6bb5f58a-8ebf-4152-a370-46b09d2a41ed",
+                            ConcurrencyStamp = "3514a695-88ea-410a-87b5-e9bc80741d35",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });

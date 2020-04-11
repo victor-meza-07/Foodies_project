@@ -19,12 +19,20 @@ namespace Foodies.Models
         public string RestaurantModelPrimaryKey { get; set; }
 
         public string RestaurantName { get; set; }
-        public string RestaurantPhone { get; set; }
+        public string RestaurantPhone { get; set; } // formatted phone
         public string AddressKey { get; set; }
         public int PriceRangeIndex { get; set; } // a value from 0-4
         public string WebsiteUrl { get; set; }
-        public string MenuUrl { get; set; }
-        public string GoogleGeoLocationData { get; set; } // Will be a FK to google GEOLOCation data. //Lat, Long
+        public bool Open_now { get; set; }
+        public float Lat { get; set; }
+        public float Lng { get; set; }
+        public PhotosFromGoogle[] Photos { get; set; }
+        public int Price_level { get; set; }
+        public float Rating { get; set; }
+        public string Place_Id { get; set; }
+        //deleted reviews
+
+
 
         //TODO: ADD THE OTHER MODELS.
 
