@@ -29,9 +29,10 @@ namespace Foodies.Models
         public PhotosFromGoogle[] Photos { get; set; }
         public int Price_level { get; set; }
         public float Rating { get; set; }
-      //deleted reviews
-        
-       
+        public string Place_Id { get; set; }
+        //deleted reviews
+
+
 
         //TODO: ADD THE OTHER MODELS.
 

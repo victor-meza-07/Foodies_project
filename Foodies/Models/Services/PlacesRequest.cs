@@ -5,6 +5,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Foodies.Contracts;
 using Foodies.Data;
+using Foodies.Models;
+using Foodies;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
@@ -18,10 +20,27 @@ namespace Foodies.Models.Services
             _context = context;
         }
 
-        //getting stuff for the kitchen
-        private async Task<GooglePlacesAPI> GetPlaces(string GetRequestURL)
+        //**** THIS IS THE ENTRY POINT **//
+        public async Task<List<RestaurantModel>> GetListOfRestaurants(string cuisine, CustomerModel customer) 
         {
-            GetRequestURL = $"https://maps.googleapis.com/maps/api/place/textsearch/json?query=american+breakfast+restaurants+cafes+bakeries+in+Milwaukee+wi&key={Api_Keys.googlePlacesApiKey}";
+
+            //generate the potential URL;
+            string customerAddKey = customer.AddressKey;
+            AddressModel customerAddress = _context.Addresses.Where(a => a.AddressKey == customerAddKey).FirstOrDefault();
+
+            string potentialQuery = GenerateSearchQuery(cuisine, customerAddress.City, customerAddress.StateCode);
+            var restaurants = await CompareApiCall(potentialQuery); // this method doesn't return anything but... 
+
+            return restaurants;
+
+        }
+
+
+
+        //getting stuff for the kitchen
+        public async Task<GooglePlacesAPI> GetPlaces(string GetRequestURL)
+        {
+          
 
             HttpClient client = new HttpClient();
 
@@ -42,7 +61,7 @@ namespace Foodies.Models.Services
 
 
         //making sure we don't buy too many boxes of sugar if we already have sugar. 
-        private async void CompareApiCall(string url)
+        private async Task<List<RestaurantModel>> CompareApiCall(string url)
         {
             Dictionary<string, string> parameterDictionary = new Dictionary<string, string>();
       
@@ -70,17 +89,35 @@ namespace Foodies.Models.Services
             if (searchResults == null)
             {
                 //we don't have enough sugar
-                var googlePlacesObject = await GetPlaces();
+                var googlePlacesObject = await GetPlaces(url);
+                MapGoogleresultToRestaurantModel(googlePlacesObject);
+                var listofRestaurants = GetRestaurantList(parameterDictionary);
+
+                return listofRestaurants;
             }
             else
             {
                 //we realize we have the right amount.
                 var listofRestaurants = GetRestaurantList(parameterDictionary);
+
+                return listofRestaurants;
             }
+
+            
+        }
+
+        private void SaveSearchParamsToLocalDB(Dictionary<string, string> param) 
+        {
+            APICalls call = new APICalls();
+            call.FoodType = param["FoodType"];
+            call.Cuisine = param["Cuisine"];
+            call.SearchedCity = param["SearchedCity"];
+            call.SearchedState = param["SearchedState"];
+            _context.RegisteredApiCalls.Add(call);
         }
 
         //prepare the meal for the customer with ingredients in our kitchen.
-        public List<RestaurantModel> GetRestaurantList(Dictionary<string, string> parameterDictionary)
+        private List<RestaurantModel> GetRestaurantList(Dictionary<string, string> parameterDictionary)
         {
             List<RestaurantModel> restaurants = new List<RestaurantModel>();
             //we have made this search before by searching for these parameters in our API CALLS TABLE
@@ -100,15 +137,16 @@ namespace Foodies.Models.Services
             else 
             {
                 //Generating the Recipe
-                var searchq = GenerateSearchQuery(parameterDictionary["Cuisine"], parameterDictionary["SearchedCity"], parameterDictionary["SearchedState"]);
+               // var searchq = GenerateSearchQuery(parameterDictionary["Cuisine"], parameterDictionary["SearchedCity"], parameterDictionary["SearchedState"]);
+               // restaurants = GetPlaces(GetRequestURL);
+                          
+               // Restaurant.name = GooglePlacesApi.Results[i].name;
+               // Restaurant.lat = GooglePlacesApi.Results[i].geometry.location.lat;
+               // Restaurant.lng = GooglePlacesApi.Results[i].geometry.location.lng;
 
-                
-                restaurants.la
-                //*******************************TODO: 1 ***************************//
+               //restaurants.Insert
 
-                //*******************************TODO: 2 ***************************//
-                //*******************************TODO: 3 ***************************//
-                //*******************************TODO: 4 ***************************//
+               
                 /*foreach (var restaurantKey in listOfRestaurantKeys)
                 {
                     var currentRestaurantModel = _context.Restaurants.Where(r => r.RestaurantModelPrimaryKey == restaurantKey).FirstOrDefault();
@@ -118,6 +156,22 @@ namespace Foodies.Models.Services
 
             return restaurants;
         }
+
+        //public string RestaurantName { get; set; }
+        //public string RestaurantPhone { get; set; } // formatted phone
+        //public string AddressKey { get; set; }
+        //public int PriceRangeIndex { get; set; } // a value from 0-4
+        //public string WebsiteUrl { get; set; }
+        //public bool Open_now { get; set; }
+        //public float Lat { get; set; }
+        //public float Lng { get; set; }
+        //public PhotosFromGoogle[] Photos { get; set; }
+        //public int Price_level { get; set; }
+        //public float Rating { get; set; }
+        ////deleted reviews
+
+
+
 
         //checking the recipe
         private string TimeOfDayFoodType()
@@ -172,28 +226,167 @@ namespace Foodies.Models.Services
 
             return apiUrl;
         }
+        private async void MapGoogleresultToRestaurantModel(GooglePlacesAPI placesObject)
+        {
+            List<string> placeIds = new List<string>();
+            Dictionary<string, string> idAdd = new Dictionary<string, string>();
+
+            foreach  (Result result in placesObject.results)
+            {
+                RestaurantModel restaurant = new RestaurantModel();
+                restaurant.RestaurantName = result.name;
+                restaurant.PriceRangeIndex = result.price_level;
+                restaurant.Open_now = result.opening_hours.open_now;
+                restaurant.Lat = result.geometry.location.lat;
+                restaurant.Lng = result.geometry.location.lng;
+                restaurant.Price_level = result.price_level;
+                restaurant.Rating = result.rating;
+                restaurant.Place_Id = result.place_id;
+
+                placeIds.Add(result.place_id);
+                idAdd.Add(result.place_id, result.formatted_address);
+                
+                _context.Restaurants.Add(restaurant);
+                    //save place id to use in search by id query                 
+                    //map addressKey table to Restaurant model address key              
+                    //photos mapped at different time
+            }
+            _context.SaveChanges();
 
 
+            //foreach (string id in placeIds)
+            //{
+            //    RestaurantModel restaurant = _context.Restaurants.Where(r => r.Place_Id == id).FirstOrDefault();
+            //    GooglePlacesAPI_PlaceIDSearchResults place =  await  GetResultsById(id);
+            //    restaurant.RestaurantPhone = place.result.formatted_phone_number;
+            //    restaurant.WebsiteUrl = place.result.website;
+            //    string addr = idAdd[id];
+            //    MapAddressToLocalDb(id, addr); // Adds the new addresses to the context; 
+
+            //}
+
+            _context.SaveChanges();
+        }
+
+        private void MapAddressToLocalDb(string id, string formatted_address) 
+        {
+            //sample formatted ADD: "2352 S Kinnickinnic Ave, Milwaukee, WI 53207, United States"
+            string BuildingNumber, StreetName, ZipCode, City, StateCode;
+            StreetName = "";
 
 
-
-        /*
-            TODO:
-            1. Map Data From Google Searches
-                a. Launch a Get Request to Google and obtain a "Google Places Object"
-                b. for every "place" object inside the "Google Places Object" map the informations we care about
-                   to our Restaurant Model
-                      * Set every property in our RestaurantModel equal to its counterpart from the GooglePlacesModel
-                      Ex: Restaurant.lat = GooglePlacesApi.results[i (iterating through all the results) ].geometry.location.lat;
-                c. insertonsubmit these mappings
-                d. submit to the db
-            2. Save the search parameters to the API Calls Table
-            3. Save the Search Results (ie: search parameter pk, and the restaurant pk to the search juntion table)
-            4. Make A list of restaurants that fit the criteria passed.
+            string[] streetParam = formatted_address.Split(',');
             
-        
-            5. Do not forget to Add-Migration
-            6. Do not Forget to Update-Database. 
-        */
+            string[] BuildingStreet = streetParam[0].Split(' ');
+            BuildingNumber = BuildingStreet[0];
+            
+            for (int i = 1; i < BuildingStreet.Length; i++) 
+            {
+                StreetName += BuildingStreet[i];
+                if (i != BuildingStreet.Length) 
+                {
+                    StreetName += " ";
+                }
+            } 
+
+
+            City = streetParam[1].Trim();
+
+            StateCode = streetParam[2].Trim();
+            string[] stateZip = StateCode.Split(' ');
+            StateCode = stateZip[0];
+
+            ZipCode = stateZip[1];
+
+
+            var restaurantGUID = _context.Restaurants.Where(r => r.Place_Id == id).Select(re => re.RestaurantModelPrimaryKey).FirstOrDefault();
+
+
+            AddressModel newAdd = new AddressModel();
+            newAdd.RestaurantGuid = restaurantGUID;
+            newAdd.BuildingNumber = Convert.ToInt32(BuildingNumber);
+            newAdd.StreetName = StreetName;
+            newAdd.City = City;
+            newAdd.StateCode = StateCode;
+            newAdd.ZipCode = Convert.ToInt32(ZipCode);
+
+            _context.Addresses.Add(newAdd);
+        }
+
+        ////NAMESPACE CONFLICT ERROR
+        //private void mapresultphotocollection(string id, googleplacesapi_placeidsearchresults place)
+        //{
+        //    var restaurantwhosphotosbelongtoguid = _context.Restaurants.where(r => r.place_id == id).select(re => re.restaurantmodelprimarykey).firstordefault();
+        //    foreach (Photo individualphoto in place.result.photos)
+        //    {
+        //        Photo photosfromresult = new Photo();
+        //        photosfromresult.restaurantguid = restaurantwhosphotosbelongtoguid;
+
+        //        //loop through all the photos. 
+        //        photosfromresult.height = individualphoto.height;
+        //        photosfromresult.photo_reference = individualphoto.photo_reference;
+        //        photosfromresult.width = individualphoto.width;
+
+        //        _context.photosfromgoogle.add(photosfromresult);
+        //    }
+        //}
+
+        //private async Task<GooglePlacesAPI_PlaceIDSearchResults> GetResultsById(string id)
+        //{
+        //    string url = $"https://maps.googleapis.com/maps/api/place/details/json?place_id={id}&fields=formatted_phone_number,name,photos,price_level,rating,reviews,vicinity,website&key={Api_Keys.googlePlacesApiKey}";
+
+        //    HttpClient client = new HttpClient();
+
+        //    HttpResponseMessage response = await client.GetAsync(url);
+
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        string json = await response.Content.ReadAsStringAsync();
+        //        GooglePlacesAPI_PlaceIDSearchResults googlePlacesAPI = JsonConvert.DeserializeObject<GooglePlacesAPI_PlaceIDSearchResults>(json);
+
+        //        return googlePlacesAPI;
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+        //}
+
+        //private void MapQueriesToSearchJunctionTable()
+        //{
+        //    collectionOfRestaurantIds = _context.SearchJunctionTable.Where(a => a.queryId == id);
+        //    List<RestaurantModel> restaurants = new List<>();
+        //    foreach (string restaurantId in collectionOfRestaurantIds)
+        //    {
+        //        RestaurantModel restaurant = _context.Restaurants.Where(r => r.RestaurantPrimaryKey == restaurantId).ForstOrDefault();
+
+        //        restaurants.Add(restaurant);
+        //    }
+        //    SearchJunction searchJunction = new SearchJunction();
+        //    searchJunction.ApiPrimaryKey = apiPrimaryKey;
+        //    searchJunction.RestaurantModelPrimaryKey = restaurantPrimaryKey;
+        //}
+
+     //   TODO:
+     //      X 1. Map Data From Google Searches
+     //          X a.Launch a Get Request to Google and obtain a "Google Places Object"
+     //          X b. for every "place" object inside the "Google Places Object" map the informations we care about
+     //              to our Restaurant Model
+     //                 * Set every property in our RestaurantModel equal to its counterpart from the GooglePlacesModel
+     //                 Ex: Restaurant.lat = GooglePlacesApi.results[i(iterating through all the results)].geometry.location.lat;
+     //   X c.insertonsubmit these mappings
+
+     //   X d. submit to the db 
+     //          ----Important note, Photos is still not functional! ---- 
+
+
+     //X 2. Save the search parameters to the API Calls Table
+     //       3. Save the Search Results (ie: search parameter pk, and the restaurant pk to the search juntion table)
+     //       X  4. Make A list of restaurants that fit the criteria passed.
+
+
+     //       X 5. Do not forget to Add-Migration
+     //       X 6. Do not Forget to Update-Database.
+     //   */
     }
 }

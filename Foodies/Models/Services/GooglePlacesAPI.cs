@@ -17,9 +17,9 @@ namespace Foodies.Models
         public string id { get; set; }
         public string name { get; set; }// restaurant name
         public Opening_Hours opening_hours { get; set; }
-        public Photo[] photos { get; set; }
+        public Photo[] Photos { get; set; }
         public string place_id { get; set; }
-        public Plus_Code plus_code { get; set; }
+        public Plus_Code  plus_Code { get; set; }
         public int price_level { get; set; }
         public float rating { get; set; }
         public string reference { get; set; }
