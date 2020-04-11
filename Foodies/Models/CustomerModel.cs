@@ -33,10 +33,13 @@ namespace Foodies.Models
         public string Email { get; set; }
 
         public string PhoneNumber { get; set; }
+        public int AgeRange { get; set; }
+        public string Gender { get; set; }
 
-        //the stuff not on the diagram that I consider useful!
 
-        //FK - LIKEs DATA from FB API
+        //facebook like data is linked in a junction table at run time with this primary ID and the user access token to get the most
+        //recent demogrpahic data.
+
 
 
     }

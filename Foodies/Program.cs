@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Foodies.Data;
+using Foodies.Models.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -13,6 +15,7 @@ namespace Foodies
     {
         public static void Main(string[] args)
         {
+        
             CreateHostBuilder(args).Build().Run();
         }
 

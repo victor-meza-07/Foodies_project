@@ -14,6 +14,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Foodies.Models.Services;
 using Foodies.Contracts;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using Foodies.ActionFilters;
 
 namespace Foodies
 {
@@ -43,6 +46,14 @@ namespace Foodies
             services.AddScoped<IPlacesRequest, PlacesRequest>();
             services.AddScoped<IPlaceResultsRequest, PlaceIdResultsRequest>();
             services.AddScoped<IFacebookDataRequest, FacebookDataRequest>();
+            services.AddScoped<ClaimsPrincipal>(s => s.GetService<IHttpContextAccessor>().HttpContext.User);
+            services.AddControllers(config => { config.Filters.Add(typeof(GlobalRouting)); });
+
+            services.AddAuthentication().AddFacebook(options => 
+            {
+                options.AppId = Api_Keys.FacebookAppID;
+                options.AppSecret = Api_Keys.FacebookAppSecret;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

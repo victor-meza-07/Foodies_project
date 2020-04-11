@@ -8,34 +8,39 @@ using Microsoft.Extensions.Logging;
 using Foodies.Models;
 using Foodies.Data;
 using Foodies.Contracts;
+using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Http;
+using System.Net.Http;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Foodies.Controllers
 {
     public class HomeController : Controller
     {
-        
-        
-        private IPlacesRequest _placesRequest;
-        public HomeController(IPlacesRequest placesRequest)
+
+        ApplicationDbContext _context;
+        public HomeController(ApplicationDbContext context)
         {
-            _placesRequest = placesRequest;
+            _context = context;
         }
 
 
         //post
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index() 
         {
-
-            //Call the facebook method.
-
-
-            //How to display the information you retrieve from google.
+            
 
             return View();
         }
 
 
-        
+        public IActionResult RedirectoToFacebook()
+        {
+            Models.Services.FacebookDataRequest facebookDataRequest = new Models.Services.FacebookDataRequest(_context);
+            facebookDataRequest.postman();
+
+            return View("Index");
+        }
 
 
 
@@ -44,6 +49,11 @@ namespace Foodies.Controllers
             return View();
         }
 
+
+        public IActionResult Register() 
+        {
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
