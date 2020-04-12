@@ -217,7 +217,7 @@ namespace Foodies.Models.Services
 
 
             string api_fields = $"{cuisine}+{foodtype}+restaurants+cafes+bakeries+in+{city}+{state}";
-            string apiUrl = $"https://maps.googleapis.com/maps/api/place/textsearch/json?query={api_fields}&key={Api_Keys.googlePlacesApiKey}";
+            string apiUrl = $"https://maps.googleapis.com/maps/api/place/textsearch/json?query={api_fields}&key={Api_Keys.GoogleApiKey}";
 
             return apiUrl;
         }
@@ -347,7 +347,7 @@ namespace Foodies.Models.Services
 
         private async Task<GooglePlacesAPI_PlaceIDSearchResults> GetResultsById(string id)
         {
-            string url = $"https://maps.googleapis.com/maps/api/place/details/json?place_id={id}&fields=formatted_phone_number,name,price_level,rating,reviews,vicinity,website&key={Api_Keys.googlePlacesApiKey}";
+            string url = $"https://maps.googleapis.com/maps/api/place/details/json?place_id={id}&fields=formatted_phone_number,name,price_level,rating,reviews,vicinity,website&key={Api_Keys.GoogleApiKey}";
 
             HttpClient client = new HttpClient();
 

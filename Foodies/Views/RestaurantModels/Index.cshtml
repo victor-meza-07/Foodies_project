@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Foodies.Models.RestaurantModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RestaurantName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RestaurantPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AddressKey)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PriceRangeIndex)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WebsiteUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Open_now)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lng)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price_level)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Place_Id)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RestaurantName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RestaurantPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddressKey)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PriceRangeIndex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WebsiteUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Open_now)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lng)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price_level)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Place_Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RestaurantModelPrimaryKey">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.RestaurantModelPrimaryKey">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.RestaurantModelPrimaryKey">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
