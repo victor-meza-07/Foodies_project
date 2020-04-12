@@ -29,23 +29,66 @@ namespace Foodies.Models
                 restaurants.Add(_context.Restaurants.Where(r => r.RestaurantModelPrimaryKey == like.RestaurantModelPrimaryKey).FirstOrDefault());
             }
 
-            //on to do some maths!
+            double ZipCodeAffinity = GetOverallZipCodeAffinity(restaurants, likesByThisCustomer);
+            //get the addinity for Cuisine
+            //Get the affinity for price level
+            //get the affinity for rating.
 
-
-            
         }
-
         private double GetOverallZipCodeAffinity(List<RestaurantModel> restaurantsLiked, IQueryable<LikeHistoryModel> likes) 
         {
             double overallAffinity = 0.0;
 
+            List<string> zipCodesListed = new List<string>();
             //Count the total amount of repeat zipcodes in the system.
-            Dictionary<string, int> ZipCodesAndFrequencies = CountRepeatZipCodes(restaurantsLiked, likes);
+            Dictionary<string, int> ZipCodesAndFrequencies = CountRepeatZipCodes(restaurantsLiked, likes, out zipCodesListed);
             double fullWeight = AssignWeightsToIndividalZipCodeInstances(restaurantsLiked, likes);
+            int totalCodeRepetitions = 0; 
+            foreach (string code in zipCodesListed) 
+            {
+                totalCodeRepetitions += ZipCodesAndFrequencies[code];
+            }
+
+
+            overallAffinity = (totalCodeRepetitions * fullWeight * 5);
+            
 
 
             return overallAffinity;
         }
+        private double GetOverallCuisineAffinity() 
+        {
+            double overallCusineAffinity = 0.0;
+            //to be able to see if they like the cuisine more we have to 
+            //see what keys they liked when they searched for a specific query
+
+            return overallCusineAffinity;
+        }
+
+
+        private Dictionary<string, int> GetCuisineFrequencies(IQueryable<LikeHistoryModel> likes) 
+        {
+            Dictionary<string, int> cuisineFrequencies = new Dictionary<string, int>();
+            
+            
+            
+            
+            
+            
+            
+            return cuisineFrequencies;
+        }
+
+
+
+
+
+
+
+
+
+
+
 
         /// <summary>
         /// Returns a dictionary of Zipcode, numericalRepeats
@@ -53,10 +96,10 @@ namespace Foodies.Models
         /// <param name="restaurantsLiked"></param>
         /// <param name="likes"></param>
         /// <returns></returns>
-        private Dictionary<string, int> CountRepeatZipCodes(List<RestaurantModel> restaurantsLiked, IQueryable<LikeHistoryModel> likes) 
+        private Dictionary<string, int> CountRepeatZipCodes(List<RestaurantModel> restaurantsLiked, IQueryable<LikeHistoryModel> likes, out List<string> zipcodes) 
         {
             Dictionary<string, int> zipCodeFrequency = new Dictionary<string, int>();
-
+            List<string> zipCodes = new List<string>();
 
             //get all instances of this one zip code.
             foreach (RestaurantModel restaurant in restaurantsLiked) 
@@ -71,11 +114,12 @@ namespace Foodies.Models
                 }
                 else
                 {
-                    zipCodeFrequency.Add(RegisteredZipCode, 0);// add it to the dictionary without a frequency value. 
+                    zipCodeFrequency.Add(RegisteredZipCode, 0);// add it to the dictionary without a frequency value.
+                    zipCodes.Add(RegisteredZipCode);
                 }
             }
 
-
+            zipcodes = zipCodes;
 
             return zipCodeFrequency;
         }
@@ -122,7 +166,7 @@ namespace Foodies.Models
 
             return totalWeight;
         }
-    
+        
     
     
     }
