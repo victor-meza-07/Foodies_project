@@ -44,7 +44,7 @@ namespace Foodies
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddScoped<IPlacesRequest, PlacesRequest>();
-            services.AddScoped<IPlaceResultsRequest, PlaceIdResultsRequest>();
+         //  services.AddScoped<IPlaceResultsRequest, PlaceIdResultsRequest>();
             services.AddScoped<IFacebookDataRequest, FacebookDataRequest>();
             services.AddScoped<ClaimsPrincipal>(s => s.GetService<IHttpContextAccessor>().HttpContext.User);
             services.AddControllers(config => { config.Filters.Add(typeof(GlobalRouting)); });

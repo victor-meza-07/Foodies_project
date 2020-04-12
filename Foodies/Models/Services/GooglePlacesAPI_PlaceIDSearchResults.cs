@@ -11,7 +11,6 @@
     {
         public string formatted_phone_number { get; set; }
         public string name { get; set; }
-        public Photo[] photos { get; set; }
         public int price_level { get; set; }
         public float rating { get; set; }
         public Review[] reviews { get; set; }
@@ -19,13 +18,6 @@
         public string website { get; set; }
     }
 
-    public class Photo
-    {
-        public int height { get; set; }
-        public string[] html_attributions { get; set; }
-        public string photo_reference { get; set; }
-        public int width { get; set; }
-    }
 
     public class Review
     {
