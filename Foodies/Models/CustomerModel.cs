@@ -36,11 +36,5 @@ namespace Foodies.Models
         public int AgeRange { get; set; }
         public string Gender { get; set; }
 
-
-        //facebook like data is linked in a junction table at run time with this primary ID and the user access token to get the most
-        //recent demogrpahic data.
-
-
-
     }
 }
