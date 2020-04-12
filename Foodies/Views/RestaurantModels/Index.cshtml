@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Foodies.Models.RestaurantModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RestaurantName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RestaurantPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AddressKey)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PriceRangeIndex)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WebsiteUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MenuUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GoogleGeoLocationData)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RestaurantName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RestaurantPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddressKey)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PriceRangeIndex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WebsiteUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenuUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GoogleGeoLocationData)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RestaurantModelPrimaryKey">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.RestaurantModelPrimaryKey">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.RestaurantModelPrimaryKey">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

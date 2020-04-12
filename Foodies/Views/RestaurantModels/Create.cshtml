@@ -1,0 +1,69 @@
+﻿@model Foodies.Models.RestaurantModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>RestaurantModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RestaurantModelPrimaryKey" class="control-label"></label>
+                <input asp-for="RestaurantModelPrimaryKey" class="form-control" />
+                <span asp-validation-for="RestaurantModelPrimaryKey" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RestaurantName" class="control-label"></label>
+                <input asp-for="RestaurantName" class="form-control" />
+                <span asp-validation-for="RestaurantName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RestaurantPhone" class="control-label"></label>
+                <input asp-for="RestaurantPhone" class="form-control" />
+                <span asp-validation-for="RestaurantPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AddressKey" class="control-label"></label>
+                <input asp-for="AddressKey" class="form-control" />
+                <span asp-validation-for="AddressKey" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PriceRangeIndex" class="control-label"></label>
+                <input asp-for="PriceRangeIndex" class="form-control" />
+                <span asp-validation-for="PriceRangeIndex" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WebsiteUrl" class="control-label"></label>
+                <input asp-for="WebsiteUrl" class="form-control" />
+                <span asp-validation-for="WebsiteUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MenuUrl" class="control-label"></label>
+                <input asp-for="MenuUrl" class="form-control" />
+                <span asp-validation-for="MenuUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GoogleGeoLocationData" class="control-label"></label>
+                <input asp-for="GoogleGeoLocationData" class="form-control" />
+                <span asp-validation-for="GoogleGeoLocationData" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

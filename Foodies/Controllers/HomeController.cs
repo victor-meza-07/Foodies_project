@@ -31,7 +31,7 @@ namespace Foodies.Controllers
             //How to display the information you retrieve from google. 
             GooglePlacesAPI places = await _placesRequest.GetPlaces();
 
-            return View(places);
+            return View();
         }
 
 

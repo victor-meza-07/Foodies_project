@@ -49,27 +49,29 @@ namespace Foodies
             var streetName = _context.Addresses.Where(a => a.AddressKey == restaurant.AddressKey)
                 .Select(b => b.StreetName)
                 .FirstOrDefault();
+            var buildingNumber = _context.Addresses.Where(a => a.AddressKey == restaurant.AddressKey).
+                Select(b => b.BuildingNumber)
+                .FirstOrDefault();
+            var city = _context.Addresses.Where(a => a.AddressKey == restaurant.AddressKey).
+                Select(b => b.City)
+                .FirstOrDefault();
+            var state = _context.Addresses.Where(a => a.AddressKey == restaurant.AddressKey).
+                Select(b => b.StateCode)
+                .FirstOrDefault();
 
+
+
+            address += buildingNumber;
             address += streetName;
+            address += city;
+            address += state;
+           
 
 
             return address;
         }
         
-        [Key]
-        private string RestuarantModelPrimaryKey { get; set; }
-
-        [ForeignKey("IdentityAddress")]
-        public string AddressKey { get; set; }
-
-        public int BuildingNumber { get; set; } //313 
-        public string StreetName { get; set; } // N Plankton
-        public int ZipCode { get; set; } //53222
-        public string City { get; set; } //Milwaukee
-        public string StateCode { get; set; } // WI
-
-        //sample: "313" "N Plankton" "Milwaukee", "WI" "53222"
-
+      
 
     }
 }
