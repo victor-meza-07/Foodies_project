@@ -4,14 +4,16 @@ using Foodies.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Foodies.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200407174941_Api-calls")]
+    partial class Apicalls
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,27 +73,6 @@ namespace Foodies.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("Foodies.Models.CustomerCuisinePreferenceModel", b =>
-                {
-                    b.Property<int>("CCPMPrimaryKey")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CuisineType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CustomerPK")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("PreferredOn")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("CCPMPrimaryKey");
-
-                    b.ToTable("CustomerCuisinePreferences");
-                });
-
             modelBuilder.Entity("Foodies.Models.CustomerFacebookLinkModel", b =>
                 {
                     b.Property<string>("CustomerFacebookKey")
@@ -100,8 +81,8 @@ namespace Foodies.Migrations
                     b.Property<string>("CustomerGUID")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserAccessToken")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("FacebookProfileId")
+                        .HasColumnType("int");
 
                     b.HasKey("CustomerFacebookKey");
 
@@ -132,16 +113,10 @@ namespace Foodies.Migrations
                     b.Property<string>("AddressKey")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AgeRange")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IdentityUserId")
@@ -198,35 +173,6 @@ namespace Foodies.Migrations
                     b.ToTable("Likes");
                 });
 
-            modelBuilder.Entity("Foodies.Models.PhotosFromGoogle", b =>
-                {
-                    b.Property<int>("PhotosPrimaryKey")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Height")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Photo_reference")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RestaurantGuid")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RestaurantModelPrimaryKey")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Width")
-                        .HasColumnType("int");
-
-                    b.HasKey("PhotosPrimaryKey");
-
-                    b.HasIndex("RestaurantModelPrimaryKey");
-
-                    b.ToTable("PhotosFromGoogle");
-                });
-
             modelBuilder.Entity("Foodies.Models.RestaurantModel", b =>
                 {
                     b.Property<string>("RestaurantModelPrimaryKey")
@@ -235,26 +181,14 @@ namespace Foodies.Migrations
                     b.Property<string>("AddressKey")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Lat")
-                        .HasColumnType("real");
+                    b.Property<string>("GoogleGeoLocationData")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Lng")
-                        .HasColumnType("real");
-
-                    b.Property<bool>("Open_now")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Place_Id")
+                    b.Property<string>("MenuUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PriceRangeIndex")
                         .HasColumnType("int");
-
-                    b.Property<int>("Price_level")
-                        .HasColumnType("int");
-
-                    b.Property<float>("Rating")
-                        .HasColumnType("real");
 
                     b.Property<string>("RestaurantName")
                         .HasColumnType("nvarchar(max)");
@@ -268,63 +202,6 @@ namespace Foodies.Migrations
                     b.HasKey("RestaurantModelPrimaryKey");
 
                     b.ToTable("Restaurants");
-                });
-
-            modelBuilder.Entity("Foodies.Models.ReviewsFromGoogle", b =>
-                {
-                    b.Property<int>("ReviewsPrimaryKey")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Author_name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Author_url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Language")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Profile_photo_url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Relative_time_description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RestaurantGuid")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Time")
-                        .HasColumnType("int");
-
-                    b.HasKey("ReviewsPrimaryKey");
-
-                    b.ToTable("ReviewsFromGoogle");
-                });
-
-            modelBuilder.Entity("Foodies.Models.SearchJunction", b =>
-                {
-                    b.Property<int>("JunctionPrimaryKey")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ApiPrimaryKey")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RestaurantModelPrimaryKey")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("JunctionPrimaryKey");
-
-                    b.ToTable("SearchJunctions");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -356,17 +233,15 @@ namespace Foodies.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5d26d905-d9fd-4581-b583-d9c1b5fb642e",
-                            ConcurrencyStamp = "b4fd6bdf-314d-45f5-8733-61823ebfa87c",
-                           
+                            Id = "89e08e78-1601-40ca-8c57-9b620fa4c8fa",
+                            ConcurrencyStamp = "8fbf4907-c243-46a1-b05d-1b495adf41d7",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "84015730-4eee-42d3-a601-4da67ea4e3e4",
-                            ConcurrencyStamp = "53cab464-8d0d-4a32-9044-521c28dfd70a",
-                           
+                            Id = "a9f322f3-717d-4d6e-8e3f-dcaf6afdefe1",
+                            ConcurrencyStamp = "26f45bd0-865f-465e-af42-86c7a640e291",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
@@ -546,13 +421,6 @@ namespace Foodies.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
                         .HasForeignKey("IdentityUserId");
-                });
-
-            modelBuilder.Entity("Foodies.Models.PhotosFromGoogle", b =>
-                {
-                    b.HasOne("Foodies.Models.RestaurantModel", null)
-                        .WithMany("Photos")
-                        .HasForeignKey("RestaurantModelPrimaryKey");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

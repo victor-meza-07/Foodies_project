@@ -34,12 +34,19 @@ namespace Foodies.Controllers
         }
 
 
+
         public IActionResult RedirectoToFacebook()
         {
             Models.Services.FacebookDataRequest facebookDataRequest = new Models.Services.FacebookDataRequest(_context);
             facebookDataRequest.postman();
 
             return View("Index");
+
+             
+          
+
+            return View();
+
         }
 
 
