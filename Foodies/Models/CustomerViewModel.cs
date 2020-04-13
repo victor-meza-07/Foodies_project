@@ -8,8 +8,8 @@ namespace Foodies.Models
     public class CustomerViewModel
     {
         public CustomerModel CurrentCustomer { get; set; }
-        public RestaurantModel[] CollectionOfRestaurantRecomendations { get; set; }
+        public List<RestaurantModel> CollectionOfRestaurantRecomendations { get; set; }
         public string CuisineFavored { get; set; }
-        public LikeHistoryModel[] LikesList { get; set; }
+        public List<LikeHistoryModel> LikesList { get; set; }
     }
 }

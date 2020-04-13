@@ -15,10 +15,10 @@ namespace Foodies.Models
             _context = context;
         }
 
-        public List<RestaurantModel> GetRestaurantRecomendations(CustomerModel customer) 
+        public List<RestaurantModel> GetRestaurantRecomendations(CustomerViewModel customer) 
         {
             List<RestaurantModel> restaurants = new List<RestaurantModel>();
-            CustomerModel MainCustomer = customer;
+            CustomerModel MainCustomer = customer.CurrentCustomer;
             var FoodieGUID = _context.Foodies.Where(foodie => foodie.CustomerOneKey == MainCustomer.CustomerModelPrimaryKey).Select(g => g.CustomerTwoKey).FirstOrDefault();
             CustomerModel Foodie = _context.Customers.Where(a => a.CustomerModelPrimaryKey == FoodieGUID).FirstOrDefault();
 
