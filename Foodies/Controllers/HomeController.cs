@@ -66,5 +66,16 @@ namespace Foodies.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        //public void MatchRestaurants()
+        //{
+        //    string customerOneChoice;
+        //    string customerTwoChoice;
+        //    string matchedChoice;
+
+        //    if (customerOneChoice == customerTwoChoice)
+        //    {
+        //        return matchedChoice;
+        //    }
+        //}
     }
 }
