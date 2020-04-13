@@ -22,7 +22,16 @@ namespace Foodies.Controllers
         // GET: RestaurantModels
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Restaurants.ToListAsync());
+            PredictiveModel model = new PredictiveModel(_context);
+
+
+            //Find out what customer is using the app at the current moment
+            /* var customer = _context.Customers.Where(/***here is where you figure that part out, ask an instructor**//*);*/
+
+            string sampleGUID = "35asd684as3da8sd43ads68a4sd3";
+            var customer = _context.Customers.Where(c => c.CustomerModelPrimaryKey == sampleGUID).FirstOrDefault();
+            var listOfRecomendations = model.GetRestaurantRecomendations(customer);
+            return View(listOfRecomendations);
         }
 
         // GET: RestaurantModels/Details/5
