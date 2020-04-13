@@ -14,9 +14,21 @@ namespace Foodies.Models
             _context = context;
         }
 
+        public List<RestaurantModel> GetRestaurantRecomendations(CustomerModel customer) 
+        {
+            List<RestaurantModel> restaurants = new List<RestaurantModel>();
+
+            return restaurants;
+        }
 
 
-        public void GetRecomendations(CustomerModel customer) 
+
+
+
+
+
+
+        private void GetRecomendations(CustomerModel customer) 
         {
             //getting info from the likes data table
             string guid = customer.CustomerModelPrimaryKey;
