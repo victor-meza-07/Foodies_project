@@ -15,7 +15,7 @@ namespace Foodies.Models
             _context = context;
         }
 
-        public List<RestaurantModel> GetRestaurantRecomendations(CustomerViewModel customer) 
+        public CustomerViewModel GetRestaurantRecomendations(CustomerViewModel customer) 
         {
             List<RestaurantModel> restaurants = new List<RestaurantModel>();
             CustomerModel MainCustomer = customer.CurrentCustomer;
@@ -43,8 +43,11 @@ namespace Foodies.Models
             //do something like foreach item in list one if list 2 !.contains(item) then list one.remove(item) where list one is the foodies 
             //list and list 2 is the main customers list. 
             restaurants = FoodieRecomendations;
-            
-            return restaurants; 
+
+            customer.CollectionOfRestaurantRecomendations = restaurants;
+
+
+            return customer; 
         }
 
 
